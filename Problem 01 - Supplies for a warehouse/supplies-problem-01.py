@@ -132,12 +132,10 @@ if __name__ == '__main__':
 
     model.writeLP("Supply_demand_prob.lp")
     model.solve(PULP_CBC_CMD())
+
     status = LpStatus[model.status]
 
     # print(status)
-    print("Total Cost:", model.objective.value())
 
     print('\n\n@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@')
     model.result()
-    f = 1
-    pass
