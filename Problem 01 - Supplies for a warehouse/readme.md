@@ -48,3 +48,7 @@ with strict equality constraints. Although, that is not the case here.
 
 ![alt text](assets/imgs/image06.png)
 
+
+
+
+[Source](https://towardsdatascience.com/linear-programming-using-python-priyansh-22b5ee888fe0)

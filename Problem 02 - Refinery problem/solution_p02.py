@@ -21,12 +21,14 @@ if __name__ == '__main__':
     problem_02.signs_constrains = ['>='] * 3
 
     problem_02.fun_obj = lpSum(np.array([11, 9]) * problem_02.name_vars_dependents)
+    print(problem_02)
     problem_02.add_constraints()
+
+    # problem_02
     problem_02.writeLP("problem_02.lp")
     problem_02.solve(PULP_CBC_CMD())
 
     status = LpStatus[problem_02.status]
     problem_02.result()
-    f = 1
-    pass
+
 

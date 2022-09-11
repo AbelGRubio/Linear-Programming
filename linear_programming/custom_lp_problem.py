@@ -68,7 +68,6 @@ class CustomLpProblem(LpProblem):
         assert _nvi == self._n_vars_independents and _nvd == self._n_vars_dependents, 'Error cost matrix definition'
 
         self._cost_matrix = matrix
-        self.define_fun_obj()
 
     @property
     def cost_constrains(self):
@@ -104,7 +103,6 @@ class CustomLpProblem(LpProblem):
                                    for i in range(1, self._n_vars_dependents + 1)]
             self.variable_names.sort()
             print("Variable Indices:", self.variable_names)
-            self._define_dv_variables()
 
     def _define_dv_variables(self):
         if self._n_vars_dependents > 0 and self._n_vars_independents > 0:
@@ -122,10 +120,11 @@ class CustomLpProblem(LpProblem):
                 self.cost_constrains,
                 self.cost_matrix.transpose()):
             print(m * self.name_vars_dependents, i, v)
-            value = lpSum(m * self.name_vars_dependents >= v)
+            value = lpSum(m * self.name_vars_dependents) >= v
             self += value, f'Constrain_{n}'
 
     def define_fun_obj(self):
+        self._define_dv_variables()
         self._obj_fun = lpSum(self.allocation * self._cost_matrix)
         self += self._obj_fun
         return self._obj_fun
@@ -142,7 +141,8 @@ class CustomLpProblem(LpProblem):
             except Exception as e:
                 print(f"error couldnt find value {e}")
 
-        for i in range(self._n_vars_dependents):
-            print("Var dependent ", str(i + 1))
-            print(lpSum(self.allocation[i][j].value() for j in range(self._n_vars_independents)))
+        if self.allocation:
+            for i in range(self._n_vars_dependents):
+                print("Var dependent ", str(i + 1))
+                print(lpSum(self.allocation[i][j].value() for j in range(self._n_vars_independents)))
 
