@@ -67,7 +67,7 @@ class CustomLpProblem(LpProblem):
 
     @property
     def warehouse_supply(self):
-        return self._cost_demands
+        return self._warehouse_supply
 
     @warehouse_supply.setter
     def warehouse_supply(self, matrix: np.ndarray):
